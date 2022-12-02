@@ -45,7 +45,7 @@ func Solution1() {
 		return elves[i].totalCalories > elves[j].totalCalories
 	})
 
-	log.Printf("Solution 2:\t%v\n", elves[0].totalCalories)
+	log.Printf("Solution 1:\t%v\n", elves[0].totalCalories)
 }
 
 func Solution2() {
