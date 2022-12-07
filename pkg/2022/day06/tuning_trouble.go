@@ -6,11 +6,11 @@ import (
 
 func Puzzle() {
 	log.Println("Day 06: Tuning Trouble")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() int {
 	m := NewMarker(4)
 	markerAt := 0
 
@@ -29,10 +29,10 @@ func Solution1() {
 		m.Unload(rune(input[i-m.size]))
 	}
 
-	log.Printf("Solution 1:\t%v\n", markerAt)
+	return markerAt
 }
 
-func Solution2() {
+func Solution2() int {
 	m := NewMarker(14)
 	markerAt := 0
 
@@ -51,7 +51,7 @@ func Solution2() {
 		m.Unload(rune(input[i-m.size]))
 	}
 
-	log.Printf("Solution 2:\t%v\n", markerAt)
+	return markerAt
 }
 
 type Marker struct {

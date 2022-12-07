@@ -8,11 +8,11 @@ import (
 
 func Puzzle() {
 	log.Println("Day 04: Camp Cleanup")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() int {
 	totalPairsOverlapped := 0
 	inputArr := strings.Split(input, "\n")
 	for _, line := range inputArr {
@@ -24,10 +24,10 @@ func Solution1() {
 		}
 	}
 
-	log.Printf("Solution 1:\t%v\n", totalPairsOverlapped)
+	return totalPairsOverlapped
 }
 
-func Solution2() {
+func Solution2() int {
 	totalPairsOverlapped := 0
 	inputArr := strings.Split(input, "\n")
 	for _, line := range inputArr {
@@ -39,7 +39,7 @@ func Solution2() {
 		}
 	}
 
-	log.Printf("Solution 2:\t%v\n", totalPairsOverlapped)
+	return totalPairsOverlapped
 }
 
 type elf struct {

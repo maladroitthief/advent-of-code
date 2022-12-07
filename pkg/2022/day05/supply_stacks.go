@@ -8,11 +8,11 @@ import (
 
 func Puzzle() {
 	log.Println("Day 05: Supply Stacks")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() string {
 	inputArr := strings.Split(input, "\n")
 	stack := NewStack()
 
@@ -43,10 +43,10 @@ func Solution1() {
 	topCrates = topCrates + topCrate(stack.crates["8"])
 	topCrates = topCrates + topCrate(stack.crates["9"])
 
-	log.Printf("Solution 1:\t%v\n", topCrates)
+	return topCrates
 }
 
-func Solution2() {
+func Solution2() string {
 	inputArr := strings.Split(input, "\n")
 	stack := NewStack()
 
@@ -74,7 +74,7 @@ func Solution2() {
 	topCrates = topCrates + topCrate(stack.crates["8"])
 	topCrates = topCrates + topCrate(stack.crates["9"])
 
-	log.Printf("Solution 2:\t%v\n", topCrates)
+	return topCrates
 }
 
 func rearrangeStack(count int, from, to string) (string, string) {

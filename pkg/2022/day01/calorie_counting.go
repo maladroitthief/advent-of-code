@@ -14,11 +14,11 @@ type Elf struct {
 
 func Puzzle() {
 	log.Println("Day 01: Calorie Counting")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() int {
 	inputArr := strings.Split(input, "\n")
 
 	elves := []Elf{}
@@ -45,10 +45,10 @@ func Solution1() {
 		return elves[i].totalCalories > elves[j].totalCalories
 	})
 
-	log.Printf("Solution 1:\t%v\n", elves[0].totalCalories)
+	return elves[0].totalCalories
 }
 
-func Solution2() {
+func Solution2() int {
 	inputArr := strings.Split(input, "\n")
 
 	elves := []Elf{}
@@ -76,5 +76,5 @@ func Solution2() {
 	})
 
 	top3 := elves[0].totalCalories + elves[1].totalCalories + elves[2].totalCalories
-	log.Printf("Solution 2:\t%v\n", top3)
+	return top3
 }

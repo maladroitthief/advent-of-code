@@ -15,11 +15,11 @@ var win int = 6
 
 func Puzzle() {
 	log.Println("Day 02: Rock Paper Scissors")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() int {
 	inputArr := strings.Split(input, "\n")
 	totalScore := 0
 	for _, line := range inputArr {
@@ -31,10 +31,10 @@ func Solution1() {
 		totalScore += roundScore
 	}
 
-	log.Printf("Solution 1:\t%v\n", totalScore)
+	return totalScore
 }
 
-func Solution2() {
+func Solution2() int {
 	inputArr := strings.Split(input, "\n")
 	totalScore := 0
 	for _, line := range inputArr {
@@ -46,7 +46,7 @@ func Solution2() {
 		totalScore += roundScore
 	}
 
-	log.Printf("Solution 2:\t%v\n", totalScore)
+	return totalScore
 }
 
 func RPS(player1, player2 string) int {

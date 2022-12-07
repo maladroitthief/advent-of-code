@@ -8,11 +8,11 @@ import (
 
 func Puzzle() {
 	log.Println("Day 03: Rucksack Reorganization")
-	Solution1()
-	Solution2()
+	log.Printf("Solution 1:\t%v\n", Solution1())
+	log.Printf("Solution 2:\t%v\n", Solution2())
 }
 
-func Solution1() {
+func Solution1() int {
 	inputArr := strings.Split(input, "\n")
 	totalPriority := 0
 	for _, line := range inputArr {
@@ -22,10 +22,10 @@ func Solution1() {
 		totalPriority += priority
 	}
 
-	log.Printf("Solution 1:\t%v\n", totalPriority)
+	return totalPriority
 }
 
-func Solution2() {
+func Solution2() int {
 	inputArr := strings.Split(input, "\n")
 	totalPriority := 0
 	for i := 0; i < len(inputArr); i += 3 {
@@ -55,7 +55,7 @@ func Solution2() {
 		}
 	}
 
-	log.Printf("Solution 2:\t%v\n", totalPriority)
+	return totalPriority
 }
 
 type rucksack struct {
