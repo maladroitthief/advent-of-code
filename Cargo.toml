@@ -8,4 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 clap = { version = "4.4.10", features = ["derive"] }
+hashbrown = "0.14.3"
+itertools = "0.12.0"
 reqwest = { version = "0.11.22", features = ["blocking"] }
+sscanf = "0.4.1"

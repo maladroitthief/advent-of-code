@@ -38,6 +38,7 @@ fn parse_input(input: &str, replace: bool) -> u32 {
                 .filter_map(|c| c.to_digit(10))
                 .collect::<Vec<u32>>()
         })
+        .filter(|line| !line.is_empty())
         .map(|vec| 10 * vec.first().unwrap() + vec.last().unwrap())
         .sum()
 }
