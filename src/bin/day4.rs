@@ -1,5 +1,5 @@
 use advent_of_code_2023::runner;
-use hashbrown::{HashMap, HashSet};
+use hashbrown::HashSet;
 use itertools::Itertools;
 
 type ScratchCard = (Vec<u32>, Vec<u32>);
