@@ -1,20 +1,25 @@
 const std = @import("std");
 const print = std.debug.print;
+const assert = std.debug.assert;
 const getInput = @import("../input.zig").getInput;
 
-const day = "1";
+const day = "?";
 
-pub fn historianHysteria() !void {
+pub fn template() !void {
     const input = try getInput(day);
 
-    partOne(input);
-    partTwo(input);
+    print("Day {s}, part 1: {any}\n", .{ day, try partOne(input) });
+    print("Day {s}, part 2: {any}\n", .{ day, try partTwo(input) });
 }
 
-fn partOne(input: []const u8) void {
-    print("{s}\n", .{input});
+fn partOne(_: []const u8) !i32 {
+    const result = 0;
+
+    return result;
 }
 
-fn partTwo(input: []const u8) void {
-    print("{s}\n", .{input});
+fn partTwo(_: []const u8) !i32 {
+    const result = 0;
+
+    return result;
 }
