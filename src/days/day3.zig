@@ -19,14 +19,19 @@ fn partOne(input: []const u8) !i32 {
     var result: i32 = 0;
 
     const instructions = try parseInput(input);
+    print("Instructions: {}\n", .{instructions.items.len});
     const product = try multiplyInstructions(instructions);
     result = sumArrayList(product);
 
     return result;
 }
 
-fn partTwo(_: []const u8) !i32 {
-    const result = 0;
+fn partTwo(input: []const u8) !i32 {
+    var result: i32 = 0;
+
+    const instructions = try processWindows(input);
+    const product = try multiplyInstructions(instructions);
+    result = sumArrayList(product);
 
     return result;
 }
@@ -42,7 +47,6 @@ fn parseInput(input: []const u8) !std.ArrayList([2]i32) {
     const middle_pattern = ",";
     const end_pattern = ")";
 
-
     var window = input;
 
     while (true) {
@@ -60,20 +64,22 @@ fn parseInput(input: []const u8) !std.ArrayList([2]i32) {
             u8,
             window[start_offset..],
             middle_pattern,
-        ).? + start_offset;
+        );
         if (middle_index == null) {
             break;
         }
+        middle_index.? += start_offset;
         const middle_offset = middle_index.? + middle_pattern.len;
 
         end_index = std.mem.indexOf(
             u8,
             window[middle_offset..],
             end_pattern,
-        ).? + middle_offset;
+        );
         if (end_index == null) {
             break;
         }
+        end_index.? += middle_offset;
 
         const part_1 = window[start_offset..middle_index.?];
         const part_2 = window[middle_offset..end_index.?];
@@ -89,7 +95,7 @@ fn parseInput(input: []const u8) !std.ArrayList([2]i32) {
             continue;
         };
 
-        try instructions.append(([2]i32{num_1, num_2}));
+        try instructions.append(([2]i32{ num_1, num_2 }));
 
         start_index.? = start_offset;
         window = window[start_index.?..];
@@ -98,7 +104,7 @@ fn parseInput(input: []const u8) !std.ArrayList([2]i32) {
     return instructions;
 }
 
-fn multiplyInstructions(instructions: std.ArrayList([2]i32)) !std.ArrayList(i32){
+fn multiplyInstructions(instructions: std.ArrayList([2]i32)) !std.ArrayList(i32) {
     var results = std.ArrayList(i32).init(gpa);
 
     for (instructions.items) |instruction| {
@@ -108,7 +114,7 @@ fn multiplyInstructions(instructions: std.ArrayList([2]i32)) !std.ArrayList(i32)
     return results;
 }
 
-fn sumArrayList(list: std.ArrayList(i32)) i32{
+fn sumArrayList(list: std.ArrayList(i32)) i32 {
     var result: i32 = 0;
 
     for (list.items) |item| {
@@ -118,69 +124,50 @@ fn sumArrayList(list: std.ArrayList(i32)) i32{
     return result;
 }
 
-fn parseInputConditional(input: []const u8) !std.ArrayList([2]i32) {
-    var instructions = std.ArrayList([2]i32).init(gpa);
-
-    var start_index: ?usize = 0;
-    var middle_index: ?usize = 0;
-    var end_index: ?usize = 0;
-
-    const start_pattern = "mul(";
-    const middle_pattern = ",";
-    const end_pattern = ")";
-
-
+fn processWindows(input: []const u8) !std.ArrayList([2]i32) {
+    var results = std.ArrayList([2]i32).init(gpa);
     var window = input;
 
-    while (true) {
-        start_index = std.mem.indexOf(
-            u8,
-            window,
-            start_pattern,
-        );
-        if (start_index == null) {
-            break;
-        }
-        const start_offset = start_index.? + start_pattern.len;
+    const do_pattern = "do()";
+    const dont_pattern = "don't()";
 
-        middle_index = std.mem.indexOf(
-            u8,
-            window[start_offset..],
-            middle_pattern,
-        ).? + start_offset;
-        if (middle_index == null) {
-            break;
-        }
-        const middle_offset = middle_index.? + middle_pattern.len;
-
-        end_index = std.mem.indexOf(
-            u8,
-            window[middle_offset..],
-            end_pattern,
-        ).? + middle_offset;
-        if (end_index == null) {
-            break;
-        }
-
-        const part_1 = window[start_offset..middle_index.?];
-        const part_2 = window[middle_offset..end_index.?];
-
-        const num_1 = std.fmt.parseInt(i32, part_1, 10) catch {
-            start_index.? = start_offset;
-            window = window[start_index.?..];
-            continue;
-        };
-        const num_2 = std.fmt.parseInt(i32, part_2, 10) catch {
-            start_index.? = start_offset;
-            window = window[start_index.?..];
-            continue;
-        };
-
-        try instructions.append(([2]i32{num_1, num_2}));
-
-        start_index.? = start_offset;
-        window = window[start_index.?..];
+    var do_index: ?usize = 0;
+    var dont_index = std.mem.indexOf(
+        u8,
+        window,
+        dont_pattern,
+    );
+    if (dont_index == null or do_index == null) {
+        return results;
     }
 
-    return instructions;
+    while (true) {
+        const instructions = try parseInput(window[do_index.?..dont_index.?]);
+        for (instructions.items) |instruction| {
+            try results.append(instruction);
+        }
+
+        do_index = std.mem.indexOf(
+            u8,
+            window[dont_index.?..],
+            do_pattern,
+        );
+        if (do_index == null) {
+            break;
+        }
+        do_index.? += dont_index.?;
+
+        dont_index = std.mem.indexOf(
+            u8,
+            window[do_index.?..],
+            dont_pattern,
+        );
+        if (dont_index == null){
+            dont_index = window.len;
+            continue;
+        }
+        dont_index.? += do_index.?;
+    }
+
+    return results;
 }
