@@ -13,13 +13,13 @@ pub fn template() !void {
 }
 
 fn partOne(_: []const u8) !i32 {
-    const result = 0;
+    const result: i32 = 0;
 
     return result;
 }
 
 fn partTwo(_: []const u8) !i32 {
-    const result = 0;
+    const result: i32 = 0;
 
     return result;
 }
