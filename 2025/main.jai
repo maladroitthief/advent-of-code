@@ -10,6 +10,7 @@ day_3 :: #import,file "day_3.jai";
 day_4 :: #import,file "day_4.jai";
 day_5 :: #import,file "day_5.jai";
 day_6 :: #import,file "day_6.jai";
+day_7 :: #import,file "day_7.jai";
 
 
 URL :: "https://adventofcode.com/2025/day/";
@@ -21,7 +22,7 @@ curl: *CURL;
 	set_build_options_dc(.{ do_output = false });
 
 	year := 2025;
-	day := 6;
+	day := 7;
 
 	input := get_input(year, day);
 
@@ -44,6 +45,9 @@ curl: *CURL;
 	case 6;
 		day_6.part_one(input);
 		day_6.part_two(input);
+	case 7;
+		day_7.part_one(input);
+		day_7.part_two(input);
 	}
 }
 
